@@ -25,12 +25,16 @@ public class commandin1 extends  Command {
     CommandScheduler.getInstance().setDefaultCommand(robozin1,
     new RunCommand(() -> {
       calc.calAnalogico();
+      calc.calAnalogico2();
+      calc.OiaAnalogico();
       calc.calPov();
       calc.calButton();
       calc.RTLT();
+    
     }, robozin1)
   );
   }
+
 
   @Override
   public void initialize() {

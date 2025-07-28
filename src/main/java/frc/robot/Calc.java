@@ -8,7 +8,7 @@ import frc.robot.subsystems.robozin1;
         private final robozin1 robozin1;
         private final Joystick joydeliciu = new Joystick(0);
     
-        private double B_Speed = 0.5, rapidao, rapidao2, seno, X, Y, magnitude;
+        private double B_Speed = 0.5, rapidao, rapidao2, seno, X, Y, magnitude,X2, Y2,seno2, magnitude2;
     
         public Calc(robozin1 robozin1) {
             this.robozin1 = robozin1;
@@ -133,6 +133,39 @@ import frc.robot.subsystems.robozin1;
             SmartDashboard.putNumber("RT", joydeliciu.getRawAxis(3));
             SmartDashboard.putNumber("LT", joydeliciu.getRawAxis(2));
        } 
-    }
 
+       public void calAnalogico2(){ 
+
+        Y2 = joydeliciu.getRawAxis(5);
+        X2 = joydeliciu.getRawAxis(4);
+
+        magnitude2 = Math.max(-1, Math.min(1, Math.hypot(X2, Y2)));
+        seno2 = Y2 / magnitude2;
+
+        if (X2 > 0.04 && Y2 > 0.04) {
+            rapidao = magnitude2 * B_Speed;
+            rapidao2 = (2 * seno2 - 1) * magnitude2 * B_Speed;
+        } else if (X2 < 0.04 && Y2 > 0.04) {
+            rapidao = (2 * seno2 - 1) * magnitude2 * B_Speed;
+            rapidao2 = magnitude2 * B_Speed;
+        } else if (X2 >= 0.04 && Y2 < 0.04) {
+            rapidao = magnitude2 * B_Speed * -1;
+            rapidao2 = (2 * seno2 + 1) * magnitude2 * B_Speed;
+        } else if (X2 < 0.04 && Y2 < 0.04) {
+            rapidao = (2 * seno2 + 1) * magnitude2 * B_Speed;
+            rapidao2 = magnitude2 * B_Speed * -1;
+        }           
+
+       }
+       public void OiaAnalogico(){
+       if (X2 >= 0.04 || X2 < -0.04 || Y2 >= 0.04 || Y2 < -0.04) {
+         X = 0;
+         Y = 0;
+        } else if (X >= 0.04 || Y >= 0.04 || X < -0.04 || Y < -0.04) {
+         X2 = 0;
+         Y2 = 0;
+
+       }
+    }
+}
     
