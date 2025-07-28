@@ -22,19 +22,10 @@ public class commandin1 extends  Command {
    this.robozin1 = robo;
    this.calc = cal;
     addRequirements(robo);
-    CommandScheduler.getInstance().setDefaultCommand(robozin1,
-    new RunCommand(() -> {
-      calc.calAnalogico();
-      calc.calAnalogico2();
-      calc.OiaAnalogico();
-      calc.calPov();
-      calc.calButton();
-      calc.RTLT();
-    
-    }, robozin1)
-  );
+    CommandScheduler.getInstance().setDefaultCommand(robozin1, new RunCommand(() -> {
+      calc.controle();
+    }, robozin1));
   }
-
 
   @Override
   public void initialize() {
