@@ -22,7 +22,7 @@ public class PidCommand extends Command {
    this.pid = pid;
    this.angulin = angulin;
 
-   pid = new PIDController(0.1, 0.0, 0.01);
+   pid = new PIDController(0.1, 0.001, 0.01);
    pid.setTolerance(1.0);
     
    addRequirements(braceta);

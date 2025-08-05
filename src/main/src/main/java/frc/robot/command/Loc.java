@@ -34,6 +34,7 @@ public class Loc extends Command {
     Smart();
     button();
     MainControl();
+    SmartDashboard.putString("Loc Status", "Rodando");
   }
 
   private void setDriveSpeeds(double left, double right) {
@@ -60,6 +61,8 @@ public class Loc extends Command {
   public void MainControl() {
     double X = joyDeliciu.getX();
     double Y = joyDeliciu.getY();
+    double X1 = joyDeliciu.getRawAxis(Constants.X1);
+    double Y2 = joyDeliciu.getRawAxis(Constants.Y2);
     double RT = joyDeliciu.getRawAxis(Constants.RT);
     double LT = joyDeliciu.getRawAxis(Constants.LT);
 
@@ -70,10 +73,14 @@ public class Loc extends Command {
       speeds = Calcs.calculateTriggerDrive(joyDeliciu, B_Speed);
     }
     else if (Math.abs(X) >= Constants.deadZone || Math.abs(Y) >= Constants.deadZone || Math.abs(X) < Constants.NegativeDeadZone || Math.abs(Y) < Constants.NegativeDeadZone) {
-      speeds = Calcs.calculateAnalogDrive(joyDeliciu, B_Speed);
+      speeds = Calcs.calculateAnalogDrive(joyDeliciu, B_Speed); 
+    }
+      else if (Math.abs(X1) >= Constants.deadZone || Math.abs(Y2) >= Constants.deadZone || Math.abs(X1) < Constants.NegativeDeadZone || Math.abs(Y2) < Constants.NegativeDeadZone){
+       speeds = Calcs.calculateAnalogDrive2(joyDeliciu,B_Speed);
     }
       else {
       stopDrive();
+      speeds = null;
       return;
     }
   

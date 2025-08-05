@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants;
 
 public class Calcs {
+    
 
    Joystick joyDeliciu;
 
@@ -19,14 +20,15 @@ public class Calcs {
     public static DriveSpeeds calculateAnalogDrive(Joystick joyDeliciu, double B_Speed) {
         double X = joyDeliciu.getX();
         double Y = -joyDeliciu.getY();
+        
 
         double magnitude = Math.hypot(X, Y);
         if (magnitude < Constants.deadZone) return new DriveSpeeds(0, 0);
 
         magnitude = Math.min(1, Math.max(-1, magnitude));
         double seno = Y / magnitude;
-
         double LS = 0, Rs = 0;
+      
 
         if (X > 0 && Y > 0) {
             LS = magnitude * B_Speed;
@@ -43,6 +45,41 @@ public class Calcs {
         }
 
         return new DriveSpeeds(LS, Rs);
+    }
+
+    public static DriveSpeeds calculateAnalogDrive2(Joystick joyDeliciu, double B_Speed){
+        double X1 = joyDeliciu.getRawAxis(4);
+        double Y2 = joyDeliciu.getRawAxis(5);
+        
+        double magnitude2 = Math.hypot(X1, Y2);
+        magnitude2 = Math.max(-1, Math.min(1, magnitude2));
+        
+        double seno2 = Y2 / magnitude2;
+
+        double rapidao = 0, rapidao2 = 0;
+        //quadrante 1
+      if (X1 > 0 && Y2 > 0) {
+        rapidao = magnitude2 * B_Speed;
+        rapidao2 = (2 * seno2 -1) * magnitude2 * B_Speed;	
+       } 
+      //quadrante 2
+      else if (X1 < 0 && Y2 > 0) {  
+        rapidao = (2 * seno2 - 1) * magnitude2 * B_Speed;
+        rapidao2 = magnitude2 * B_Speed;
+       } 
+      //quadrante 3
+      else if (X1 >= 0 && Y2 < 0) {
+        rapidao = magnitude2 * B_Speed * -1;	
+        rapidao2 = (2 * seno2 + 1) * magnitude2 * B_Speed;
+       } 
+      //quadrante 4
+       else if (X1 < 0 && Y2 < 0) {
+        rapidao = (2 * seno2 + 1) * magnitude2 * B_Speed;
+        rapidao2 = magnitude2 * B_Speed * -1;
+       }
+
+       return new DriveSpeeds(rapidao,rapidao2);
+
     }
 
     public static DriveSpeeds calculateTriggerDrive(Joystick joyDeliciu, double B_Speed) {

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.command.AutonomousCommand;
 import frc.robot.command.Loc;
 
 /**
@@ -19,9 +20,10 @@ import frc.robot.command.Loc;
 public class Robot extends TimedRobot {
   // private Loc locCommand;
   
-  
+  Timer timer = new Timer();
   private RobotContainer m_robotContainer;
-  
+  private Command m_autonomousCommand;
+
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
@@ -35,6 +37,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
+     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 }
   /**
    * 
@@ -59,18 +62,26 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }
+    
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
-
-  @Override
-  public void teleopInit() {
-
+  public void autonomousPeriodic() {
   }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopInit() {
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel(); // cancela se ainda estiver rodando
+    }
+  }
+
+  @Override
+  public void teleopPeriodic() {
+  }
 }

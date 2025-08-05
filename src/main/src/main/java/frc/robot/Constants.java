@@ -17,4 +17,7 @@ public final class Constants {
   public static int povDeadZone = -1;
   public static int m_Bracin = 0;
   public static int sensorPos = 0;
+  public static int Y2 = 5;
+  public static int X1 = 4;
+  public static double autonomousLoc = 0.25;
 }
