@@ -1,0 +1,21 @@
+package frc.robot;
+
+public final class Constants {
+
+  public static int LMot = 3;
+  public static int RMot = 2;
+  public static int LMot2 = 4;
+  public static int RMot2 = 1;
+  public static double deadZone = 0.04;
+  public static int RT = 3;
+  public static int LT = 2;
+  public static int a = 1;
+  public static int b = 2;
+  public static int x = 3;
+  public static int joy = 0;
+  public static double NegativeDeadZone = -0.04;
+  public static int povDeadZone = -1;
+  public static int m_Bracin = 0;
+  public static int sensorPos = 0;
+  public static double autonomousLoc = 0.5;
+}
